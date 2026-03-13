@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------------------------------------------
+  # BANCO DE DADOS: O Alicerce (MySQL 8.0)
+  # ----------------------------------------------------------------------------
+  db:
+    image: mysql:8.0
+    container_name: betalent_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: betalent_api
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init-db:/docker-entrypoint-initdb.d # DDL/DML de inicialização
+      - ./scripts/entrypoint-db.sh:/usr/local/bin/entrypoint-db.sh
+    entrypoint: ["/usr/local/bin/entrypoint-db.sh"]
+    command: ["--default-authentication-plugin=mysql_native_password"]
+    networks:
+      - betalent-net
+
+  # ----------------------------------------------------------------------------
+  # BACKEND: O Core (AdonisJS + TypeORM)
+  # ----------------------------------------------------------------------------
+  app:
+    build:
+      context: .
+      dockerfile: Containerfile
+    container_name: betalent_api
+    restart: on-failure
+    depends_on:
+      db:
+        condition: service_started
+      gateways-mock:
+        condition: service_started
+    ports:
+      - "3333:3333"
+    environment:
+      - NODE_ENV=development
+      - PORT=3333
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_DATABASE=betalent_api
+      - RUN_E2E=true # Flag para rodar validação automatizada no boot
+    volumes:
+      - .:/home/node/app
+      - /home/node/app/node_modules # Protege os módulos do container
+      - ./scripts/entrypoint-app.sh:/home/node/app/entrypoint.sh
+      - ./scripts/wait-for-it.sh:/home/node/app/wait-for-it.sh
+    networks:
+      - betalent-net
+
+  # ----------------------------------------------------------------------------
+  # MOCKS: APIs de Terceiros (Gateway 1 e 2)
+  # ----------------------------------------------------------------------------
+  gateways-mock:
+    image: matheusprotzen/gateways-mock
+    container_name: gateways_mock
+    ports:
+      - "3001:3001"
+      - "3002:3002"
+    environment:
+      - REMOVE_AUTH=false # Nível 2 exige autenticação
+    networks:
+      - betalent-net
+
+# ------------------------------------------------------------------------------
+# INFRAESTRUTURA DE REDE E VOLUMES
+# ------------------------------------------------------------------------------
+networks:
+  betalent-net:
+    driver: bridge
+
+volumes:
+  db_data:
