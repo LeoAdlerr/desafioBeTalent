@@ -87,3 +87,26 @@
         <li><strong>Ambiente de Desenvolvimento Ativo:</strong> O mapeamento de volumes no serviço <code>app</code> permite o <i>Hot Reloading</i>; qualquer alteração no código fonte é refletida instantaneamente sem necessidade de novo build da imagem.</li>
     </ul>
 </section>
+
+<section class="decision-card" style="border-left-color: #e67e22;">
+    <h4>🔄 Pivot de Engenharia: Inicialização do Banco</h4>
+    <p>
+        <strong>Problema Identificado:</strong> O uso de <i>Entrypoints</i> customizados em background no MySQL 8.0 gera condições de corrida (Race Conditions) pelo arquivo de lock do socket unix durante o estágio de <code>Temporary Server</code>.
+    </p>
+    <ul>
+        <li><strong>Decisão:</strong> Substituição do script <code>entrypoint-db.sh</code> pelo mecanismo nativo <code>/docker-entrypoint-initdb.d/</code> da imagem oficial.</li>
+        <li><strong>Vantagem:</strong> Maior confiabilidade no processo de <i>bootstrap</i> dos dados e conformidade com o comportamento padrão da imagem oficial, garantindo que o DDL/DML seja executado apenas uma única vez na criação do volume.</li>
+        <li><strong>Validação:</strong> A integridade é garantida pela orquestração do <code>wait-for-it.sh</code> no lado do Backend, que aguarda a disponibilidade real da porta 3306 antes de iniciar a aplicação.</li>
+    </ul>
+</section>
+<section class="decision-card">
+    <h4>📦 Gestão de Scripts e Ciclo de Vida</h4>
+    <p>
+        O <code>package.json</code> foi configurado para unificar o fluxo de trabalho entre o ambiente local e o containerizado.
+    </p>
+    <ul>
+        <li><strong>start:dev:</strong> Atalho customizado para o <code>node ace serve --watch</code>, permitindo que o desenvolvedor utilize um comando padronizado enquanto o AdonisJS Assembler monitora alterações nos arquivos.</li>
+        <li><strong>TypeORM CLI:</strong> Configurado para rodar via <code>node --loader ts-node/esm</code>, garantindo compatibilidade com os módulos ECMAScript (ESM) nativos do AdonisJS 6.</li>
+        <li><strong>Fidelidade de Versões:</strong> O uso do Yarn garante que a árvore de dependências seja idêntica em todas as instâncias da <i>Podman Machine</i>.</li>
+    </ul>
+</section>
