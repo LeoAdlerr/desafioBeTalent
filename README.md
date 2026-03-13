@@ -1,99 +1,76 @@
 <header>
-    <h1>💳 Sistema Gerenciador de Pagamentos Multi-Gateway</h1>
-    <p>Projeto desenvolvido para o <strong>Processo Seletivo BeTalent</strong></p>
-    <span class="badge">Nível 2 Implementado</span>
+    <h1>💳 Sistema de Pagamentos Multi-Gateway</h1>
+    <p>Engenharia de Software de Alta Performance | BeTalent Challenge</p>
+    <div class="badge">Nível de Entrega: 2.5 (Híbrido Pleno)</div>
 </header>
 
-<section class="profile-box">
-    <h2>👨‍💻 Sobre o Desenvolvedor</h2>
-    <p>Atualmente atuo como <strong>Analista de Sistemas I na Universal Armazéns Gerais e Alfandegados</strong>. Minha trajetória é focada na transição para o desenvolvimento Backend, unindo rigor acadêmico e prática de mercado.</p>
-    <ul>
-        <li><strong>Formação:</strong> Tecnólogo em Banco de Dados pela <strong>FATEC São José dos Campos</strong>.</li>
-        <li><strong>Especialização:</strong> Aluno especial de Mestrado na <strong>UNIFESP</strong>.</li>
-        <li><strong>Portfólio:</strong> <a href="https://github.com/LeoAdlerr/PortfolioApis" target="_blank">github.com/LeoAdlerr/PortfolioApis</a></li>
-    </ul>
+<section>
+    <h2>👨‍💻 Perfil & Engenharia Aumentada por IA</h2>
+    <p>
+        Sou <strong>Leonardo Adler</strong>, Analista de Sistemas I na Universal Armazéns Gerais. Minha atuação une o <strong>rigor acadêmico</strong> (Mestrado em Ciência da Computação na UNIFESP e Formação em Banco de Dados na FATEC) à eficiência da <strong>IA Generativa</strong>.
+    </p>
+    <div class="methodology-box">
+        <h4>🛠 Metodologia de Desenvolvimento</h4>
+        <p>
+            Utilizo o <strong>Google Gemini</strong> como multiplicador de produtividade, atuando como <strong>Arquiteto e Revisor Crítico</strong>. A IA acelera o "trabalho de pedreiro" (boilerplates e rotinas), enquanto meu foco recai sobre a integridade do modelo, padrões <strong>S.O.L.I.D</strong> e <strong>Clean Architecture</strong>.
+        </p>
+    </div>
 </section>
 
 <section>
-    <h2>🎯 O Desafio: Foco Nível 2</h2>
-    <p>Como um Desenvolvedor Júnior com sólida base em dados, optei por entregar o <strong>Nível 2</strong> com excelência técnica, garantindo uma API resiliente e modular.</p>
-    <h3>Destaques da Implementação:</h3>
-    <ul>
-        <li><strong>Cálculo Server-side:</strong> Valor total (Preço × Quantidade) processado integralmente no backend via AdonisJS.</li>
-        <li><strong>Lógica de Failover:</strong> Tentativa automática entre gateways baseada em prioridade dinâmica.</li>
-        <li><strong>Segurança:</strong> Tratamento de dados sensíveis e autenticação robusta para Gateways externos.</li>
-    </ul>
+    <h2>🏗️ Workflow de Execução do Projeto</h2>
+    <p>O desenvolvimento segue uma ordem rigorosa para garantir paridade de ambiente e fidelidade de dados:</p>
+    <div class="workflow-step">
+        <h5>1. Infraestrutura First (Podman/Docker)</h5>
+        <p>Configuração do ecossistema via <code>podman-compose</code>, garantindo que o banco MySQL, a aplicação Node.js e os mocks dos Gateways coexistam em rede isolada. Toda a infra é 100% traduzível para Docker Desktop ao final do processo.</p>
+    </div>
+    <div class="workflow-step">
+        <h5>2. Modelagem Database-First</h5>
+        <p>Como Tecnólogo em Banco de Dados, a modelagem é o coração da solução. A estrutura de dados foi desenhada para o <strong>Nível 2</strong>, priorizando integridade referencial e performance antes da escrita de qualquer linha de lógica de negócio.</p>
+    </div>
+    <div class="workflow-step">
+        <h5>3. Construção do App (AdonisJS + TypeORM)</h5>
+        <p>Implementação seguindo o padrão MVC, mas com uma escolha técnica específica: o uso de <strong>TypeORM</strong> em vez do Lucid. Esta escolha visa a maior fidelidade possível ao modelo de dados através de um Data Mapper robusto, facilitando o gerenciamento de transações financeiras.</p>
+    </div>
 </section>
 
 <section>
-    <h2>🛠️ Stack Tecnológica</h2>
+    <h2>🎯 Estratégia do Desafio</h2>
+    <div class="grid">
+        <div class="level-card active">
+            <h4>Nível 2 (Base)</h4>
+            <p><strong>Implementado:</strong> Cálculo de valor no Backend, Gateways com autenticação e modelagem relacional completa.</p>
+        </div>
+        <div class="level-card">
+            <h4>Diferenciais Nível 3</h4>
+            <p><span class="highlight">Bônus:</span> Implementação de <strong>TDD</strong>, ambiente containerizado completo e lógica de <strong>Roles (RBAC)</strong> integrada ao processo de checkout.</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>🛠️ Stack Técnica</h2>
     <ul>
-        <li><strong>Backend:</strong> AdonisJS 6 (Node.js + TypeScript)</li>
-        <li><strong>ORM:</strong> Lucid (Active Record)</li>
+        <li><strong>Framework:</strong> AdonisJS 6 (Node.js)</li>
+        <li><strong>ORM:</strong> TypeORM (Preferência técnica para fidelidade ao modelo de dados)</li>
         <li><strong>Banco de Dados:</strong> MySQL 8.0</li>
-        <li><strong>Containerização:</strong> Podman / Docker Compose</li>
+        <li><strong>Containerização:</strong> Podman (Desenvolvimento) / Docker (Entrega final)</li>
     </ul>
-</section>
 
-<section>
-    <h2>🚀 Como Executar</h2>
-    <p>Certifique-se de ter o <strong>Podman</strong> ou <strong>Docker</strong> instalado.</p>
-    <pre><code># 1. Clonar repositório
-git clone https://github.com/LeoAdlerr/betalent-challenge.git
+    <h3>Como subir o ambiente</h3>
+    <pre><code># Clonar repositório
+git clone <https://github.com/LeoAdlerr/betalent-challenge.git>
 
-# 2. Subir infraestrutura (DB + Gateway Mocks)
+# Subir toda a infra (DB + App + Mocks)
+
 podman-compose up -d
 
-# 3. Instalar dependências e rodar migrations
-npm install
-node ace migration:run
-npm run dev</code></pre>
+# Acompanhar logs
+
+podman-compose logs -f</code></pre>
 </section>
 
-<section>
-    <h2>🛣️ Principais Endpoints</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Rota</th>
-                <th>Método</th>
-                <th>Descrição</th>
-                <th>Acesso</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><code>/login</code></td>
-                <td>POST</td>
-                <td>Autenticação administrativa</td>
-                <td>Público</td>
-            </tr>
-            <tr>
-                <td><code>/compra</code></td>
-                <td>POST</td>
-                <td>Processamento de pagamento</td>
-                <td>Público</td>
-            </tr>
-            <tr>
-                <td><code>/gateways</code></td>
-                <td>PATCH</td>
-                <td>Gestão de prioridades</td>
-                <td>Admin</td>
-            </tr>
-            <tr>
-                <td><code>/compras</code></td>
-                <td>GET</td>
-                <td>Listagem de transações</td>
-                <td>Privado</td>
-            </tr>
-        </tbody>
-    </table>
-</section>
-
-<hr>
-
-<footer>
-    <p style="text-align: center; font-size: 0.9em; color: #777;">
-        Desenvolvido com foco em qualidade e integridade de dados por Leonardo Adler.
-    </p>
-</footer>
+<div class="footer-text">
+    <p>Leonardo Adler | leonardoadlersilva@gmail.com</p>
+    <p><i>"O banco de dados é o alicerce; o código é apenas o reflexo da sua integridade."</i></p>
+</div>
